@@ -1,0 +1,48 @@
+(define (domain SOKOBAN)
+  (:requirements :strips :typing)
+  (:types location truc direction - object
+        box guard - truc)
+  (:predicates (clear ?x - location)
+                (at ?x - truc ?y - location)
+                (atgoal ?x - box)
+                (goal ?y - location)
+                (notgoal ?x - location)
+                (deplacement ?x ?y - location ?d - direction)
+   )
+
+  (:action move
+	     :parameters (?x - location ?y - location ?p - guard ?d - direction)
+	     :precondition (and (clear ?y) (deplacement ?x ?y ?d)(at ?p ?x))
+	     :effect
+	     (and (not (at ?p ?x))
+            (at ?p ?y)
+            (not (clear ?y))
+		    (clear ?x)
+		)
+  )  (:action movebox
+	     :parameters (?x - location ?y - location ?z - location ?p - guard ?d - direction ?b - box)
+	     :precondition (and (clear ?z) (deplacement ?x ?y ?d)(deplacement ?y ?z ?d)(at ?p ?x)(at ?b ?y)(notgoal ?z))
+	     :effect
+	     (and (not (at ?p ?x))
+            (not (at ?b ?y))
+            (at ?p ?y)
+            (at ?b ?z)
+            (not (clear ?z))
+		    (clear ?x)
+            (not(atgoal ?b))
+		)
+  )
+  (:action movegoal
+	     :parameters (?x - location ?y - location ?z - location ?p - guard ?d - direction ?b - box)
+	     :precondition (and (clear ?z) (deplacement ?x ?y ?d)(deplacement ?y ?z ?d)(at ?p ?x)(at ?b ?y)(goal ?z))
+	     :effect
+	     (and (not (at ?p ?x))
+            (not (at ?b ?y))
+            (at ?p ?y)
+            (at ?b ?z)
+            (not (clear ?z))
+		    (clear ?x)
+            (atgoal ?b)
+		)
+  )
+  )

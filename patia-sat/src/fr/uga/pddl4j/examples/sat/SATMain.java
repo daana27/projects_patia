@@ -137,7 +137,7 @@ public class SATMain extends AbstractPlanner {
 		Plan newPlan = new SequentialPlan();
 
 		for(int literal : plan) {
-			if ((literal % t >= 1) && (literal % t <= t) && (literal / t < 5)) {
+			if ((literal % t >= 1) && (literal % t <= t) && (literal / t < nbSteps)) {
 				int actionId = (literal%t) - problem.getFluents().size() ;
 				if( actionId>0) {
 					Action action = problem.getActions().get(actionId-1);

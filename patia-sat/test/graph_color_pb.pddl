@@ -1,0 +1,10 @@
+(define (problem BLOCKS-4-0)
+(:domain COLOR)
+(:objects a b c d - node
+		c1 c2 c3 - color)
+(:INIT (connected a b) (connected a c) (connected c b) (connected b d) (connected b a) (connected c a) (connected b c) (connected d b)
+		(clear a)(clear b)(clear c)(clear d) 
+		(void a)(void b)(void c)(void d)
+		(diff c1 c2)(diff c1 c3)(diff c2 c3)(diff c2 c1)(diff c3 c1)(diff c3 c2))
+(:goal (AND (deconecte a b)(deconecte a c)(deconecte c b)(deconecte b d) ))
+)
